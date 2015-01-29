@@ -12,7 +12,7 @@ import net.acomputerdog.ircbot.plugin.PluginList;
 public class CommandPlugins extends Command {
 
     public CommandPlugins(IrcBot bot) {
-        super(bot, "plugins", "plugins", "plugin");
+        super(bot, "plugins", "Plugins", "plugin");
     }
 
     @Override
