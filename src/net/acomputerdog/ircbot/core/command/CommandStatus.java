@@ -3,6 +3,8 @@ package net.acomputerdog.ircbot.core.command;
 import com.sorcix.sirc.structure.Channel;
 import com.sorcix.sirc.structure.User;
 import com.sorcix.sirc.util.Chattable;
+import net.acomputerdog.core.time.ITime;
+import net.acomputerdog.core.time.StandardClock;
 import net.acomputerdog.ircbot.command.Command;
 import net.acomputerdog.ircbot.command.util.CommandLine;
 import net.acomputerdog.ircbot.main.IrcBot;
@@ -10,8 +12,13 @@ import net.acomputerdog.ircbot.plugin.IrcPlugin;
 import net.acomputerdog.ircbot.plugin.PluginList;
 
 public class CommandStatus extends Command {
+
+    private final long startTime;
+
     public CommandStatus(IrcBot bot) {
         super(bot, "Status", "status", "stats");
+        startTime = System.currentTimeMillis();
+
     }
 
     @Override
@@ -35,6 +42,16 @@ public class CommandStatus extends Command {
             count++;
         }
         target.send("  Plugins (" + plugins.size()  + "): " + builder.toString());
+        target.send("  Uptime: " + calcUptime());
         return true;
+    }
+
+    private String calcUptime() {
+        long millis = System.currentTimeMillis() - startTime;
+        long seconds = millis / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        return days + " days, " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds.";
     }
 }
