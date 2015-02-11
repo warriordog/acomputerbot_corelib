@@ -52,6 +52,6 @@ public class CommandStatus extends Command {
         long minutes = seconds / 60;
         long hours = minutes / 60;
         long days = hours / 24;
-        return days + " days, " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds.";
+        return days + " days, " + (hours % 24) + " hours, " + (minutes % 60) + " minutes, and " + (seconds % 60) + " seconds.";
     }
 }
